@@ -24,3 +24,16 @@ export function getWordDescription(keyWord)
 		return "Provide valid keyword\n";
 	return mapOfKeyWords.has(keyWord) === true ? mapOfKeyWords.get(keyWord) : "ERROR: No such keyword\n";
 }
+export function readKeyWord(input)
+{
+        input.question('', keyWord => {
+                if (keyWord === '')
+                {
+                        input.close();
+                        return; 
+                }       
+                console.log(getWordDescription(keyWord));
+                readKeyWord(input);
+        });
+}
+

@@ -1,6 +1,6 @@
 "use strict"
 import {printLinuxVersion, printJavaScriptVersion} from './help.mjs';
-import {glossaryInit, getWordDescription} from './glossary.mjs';
+import {glossaryInit, getWordDescription, readKeyWord} from './glossary.mjs';
 import { createInterface } from 'node:readline';
 const stdinInput = createInterface({
   input: process.stdin,
@@ -10,19 +10,22 @@ const stdinInput = createInterface({
 
 console.log('Welcome to a help facility\n\n');
 glossaryInit();
-stdinInput.question('', command => {
-	switch (command)
-	{
-		case 'help' :
-			printLinuxVersion();
-			printJavaScriptVersion();
-			stdinInput.close();
-			break;
-		case 'key word' :
-			stdinInput.question('', keyWord => {
-				console.log(getWordDescription(keyWord));
+function mainModule()
+{
+	stdinInput.question('', command => {
+		switch (command)
+		{
+			case 'help' :
+				printLinuxVersion();
+				printJavaScriptVersion();
 				stdinInput.close();
-			});	
-			break;
-	}
-});
+				break;
+			case 'glossary' :
+				readKeyWord(stdinInput);
+				break;
+			case 'quit' :
+				process.exit(0);
+		}
+	});
+}
+mainModule();
