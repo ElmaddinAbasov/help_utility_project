@@ -2,6 +2,7 @@
 import {printLinuxVersion, printJavaScriptVersion} from './help.mjs';
 import {glossaryInit, getWordDescription, readKeyWord} from './glossary.mjs';
 import {printListOfEducationCenters} from './starter.mjs';
+import {usageInit, usageFunc} from './usage.mjs';
 import { createInterface } from 'node:readline';
 const stdinInput = createInterface({
   input: process.stdin,
@@ -11,6 +12,7 @@ const stdinInput = createInterface({
 
 console.log('Welcome to a help facility\n\n');
 glossaryInit();
+usageInit();
 function mainModule()
 {
 	stdinInput.question('', command => {
@@ -26,6 +28,10 @@ function mainModule()
 				break;
 			case 'starter' :
 				printListOfEducationCenters();
+				stdinInput.close();
+				break;
+			case 'usage' :
+				usageFunc(stdinInput);
 				break;
 			case 'quit' :
 			case '' :
